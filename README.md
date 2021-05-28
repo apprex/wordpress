@@ -2,7 +2,7 @@
 Onlinekurse mit WordPress verkaufen. Nutze unser apprex WordPress Plugin zum stets aktuellen Anzeigen deiner Onlinekurse
 
 ## Installation (DE)
-### Plugin hochladne
+### Plugin hochladen
 Um das Plugin zu installieren, lade dir die aktuelle Version [hier](https://github.com/apprex/wordpress/archive/refs/heads/main.zip) herunter.
 Das Zip Archiv (https://github.com/apprex/wordpress/archive/refs/heads/main.zip), welches du heruntergeladen hast, musst du dann entweder
 * Über dein WordPress Admin Backend unter Plugins > Hochladen
