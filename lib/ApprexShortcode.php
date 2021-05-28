@@ -34,22 +34,25 @@ class ApprexShortcode {
      }
 
      public static function makeRequest($url, $apprex_atts, &$html) {
+          $html .= "<!--- arx_plugin --> <div class=\"apprex-container\">";
           $WP_Http_Curl = new WP_Http_Curl();
           try {
-               $reqUrl = $url. "api/courses/list?";
+               $reqUrl = $url. "api/courses?";
                if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { $reqUrl .= "&filter[title]=".$apprex_atts["filter_title"]; }
                $response = @$WP_Http_Curl->request($reqUrl , ['headers' => ['accept' => 'application/json']]);
                if (is_array($response) && isset($response["body"])) {
                     $courses = json_decode($response["body"]);
-                    $html .= "<div class=\"apprex-row\">\n";
+                    $html .= "<div class=\"apprex-row \">\n";
                     foreach ($courses as $course) {
-                         if (!isset($course->id) || !isset($course->title) || !isset($course->currentPrice) || !isset($course->modules_count)) { continue; }
-                         $html .= "<div class=\"apprex-col-3\">\n";
+                         if (!isset($course->id) || !isset($course->title) || !isset($course->currentPrice)) { continue; }
+                         $html .= "<div class=\"apprex-column apprex-col-4\">\n";
                          $html .= "<img src=\"" . $course->image_url . "\">\n";
                          $html .= "<strong>" . $course->title . "</strong>\n";
                          $html .= "<p>" . $course->content_excerpt . "</p>\n";
                          $html .= "<strong>" . $course->currentPrice . " € </strong> <br>\n";
-                         $html .= "<i>Der Kurs beinhaltet " . $course->modules_count . " Module </i>\n";
+                         if(isset($course->modules_count)) {
+                              $html .= "<i>Der Kurs beinhaltet " . $course->modules_count . " Module </i>\n";
+                         }
                          $html .= "<a href=\"".$url."courses/".$course->slug."/?utm_source=app_wpp\" target=\"_blank\" class=\"apprex-button\">Mehr erfahren...</a>\n";
                          $html .= "</div>\n";
                     }
@@ -57,6 +60,7 @@ class ApprexShortcode {
                } else if (isset($response->errors)) {
                     $html .= "Beim Abruf unserer Kurse (".$url.") ist ein Fehler unterlaufen. ";
                }
+               $html .= "</div>";
           } catch (\WP_Error $e) {
                return "<!-- e1 -->";
                // there seems to be something wrong
