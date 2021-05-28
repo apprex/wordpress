@@ -5,7 +5,7 @@ Plugin URI: https://www.apprex.de/plugins/wordpress
 Description: Integriere deine Onlinekurse aus apprex direkt in WordPress
 Author: Andreas Pabst von apprex.de
 Author URI: https://www.andreaspabst.com
-Version: 0.1.3
+Version: 0.1.6
 */
 
 // Stop direct calling of this file
