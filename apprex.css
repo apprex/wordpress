@@ -1,0 +1,81 @@
+.apprex-col-1 {
+     width: 8.33%;
+}
+
+.apprex-col-2 {
+     width: 16.66%;
+}
+
+.apprex-col-3 {
+     width: 25%;
+}
+
+.apprex-col-4 {
+     width: 33.33%;
+}
+
+.apprex-col-5 {
+     width: 41.66%;
+}
+
+.apprex-col-6 {
+     width: 50%;
+}
+
+.apprex-col-7 {
+     width: 58.33%;
+}
+
+.apprex-col-8 {
+     width: 66.66%;
+}
+
+.apprex-col-9 {
+     width: 75%;
+}
+
+.apprex-col-10 {
+     width: 83.33%;
+}
+
+.apprex-col-11 {
+     width: 91.66%;
+}
+
+.apprex-col-12 {
+     width: 100%;
+}
+
+[class*="apprex-col-"] {
+     float: left;
+     padding: 15px;
+     border: 1px solid #ccc;
+}
+
+.apprex-row::after {
+     content: "";
+     clear: both;
+     display: table;
+}
+
+.apprex-button {
+     font-size: 16px;
+     border: 1px solid rgb(68, 141, 238);
+     background-color:  rgb(36, 102, 189);
+     border-radius: 3px;
+     color: #fff;
+     padding-left: 10px;
+     padding-right: 10px;
+     padding-top: 5px;
+     padding-bottom: 5px;
+     display: block;
+     text-decoration: none;
+}
+
+.apprex-button:hover {
+     background-color:  rgb(102, 151, 214);
+}
+
+.apprex-button:active {
+     background-color:  rgb(37, 65, 102);
+}
