@@ -23,11 +23,17 @@ Easily integrate your apprex items to wordpress. It is NOT possible to buy them 
 No, but you can deeplink to the purchase form
 
 == Changelog ==
-= 0.1.3
-Versioning
+= 0.1.5 = 
+* Added filter and upgraded install information
 
-= 0.1.2
-Styling upgrade
+= 0.1.4 = 
+* Added information about how to install the plugin
+
+= 0.1.3 = 
+* Versioning
+
+= 0.1.2 = 
+* Styling upgrade
 
 = 0.1.0 =
 * Added auto update

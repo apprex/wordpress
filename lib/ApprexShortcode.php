@@ -8,9 +8,10 @@ class ApprexShortcode {
           // override default attributes with user attributes
           $apprex_atts = shortcode_atts(
                array(
+                    'debug' => false,
                     'url_academy' => null,
                     'category_id' => null,
-                    'filter'      => array(),
+                    'filter_title' => null
                ), $atts, $tag
           );
 
@@ -37,8 +38,10 @@ class ApprexShortcode {
           $html .= "<!--- arx_plugin --> <div class=\"apprex-container\">";
           $WP_Http_Curl = new WP_Http_Curl();
           try {
-               $reqUrl = $url. "api/courses?";
-               if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { $reqUrl .= "&filter[title]=".$apprex_atts["filter_title"]; }
+               $reqUrl = $url. "api/courses";
+               if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { 
+                    $reqUrl .= "?".http_build_query(array("filter[title]" => $apprex_atts["filter_title"]));
+               }
                $response = @$WP_Http_Curl->request($reqUrl , ['headers' => ['accept' => 'application/json']]);
                if (is_array($response) && isset($response["body"])) {
                     $courses = json_decode($response["body"]);
