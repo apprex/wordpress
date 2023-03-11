@@ -68,7 +68,7 @@ class ApprexShortcode {
                               $html .= "<img src=\"" . $article->image_url . "\">\n";
                               $html .= "<div class=\"apprex-title-and-price\">";
                                    $html .= "<h2 class=\"apprex-title\">" . $article->title . "</h2>\n";
-                                   if(!empty($article->current_price) && $apprex_atts["type"] != 1) {
+                                   if(!empty($article->current_price) && $apprex_atts["hide_price"] != 1) {
                                         $html .= "<p class=\"apprex-price\">" . $article->current_price . " € </p> <br>\n";
                                    }
                                    $html .= "</div>";
