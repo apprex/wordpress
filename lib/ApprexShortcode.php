@@ -46,9 +46,9 @@ class ApprexShortcode {
           $cols = round(12 / $apprex_atts["cols"]);
           $available_types = array("articles", "courses", "posts", "plans", "products", "events");
           $max = $apprex_atts["cols"] ?? 6;
-          $resource = in_array($apprex_atts["type"], $available_types) ? $apprex_atts["type"] : "articles";
+          $reqResource = in_array($apprex_atts["type"], $available_types) ? $apprex_atts["type"] : "articles";
           try {
-               $reqUrl = $url. "api/".$resource."?".http_build_query(array(
+               $reqUrl = $url. "api/".$reqResource."?".http_build_query(array(
                     "filter[title]" => $apprex_atts["filter_title"], 
                     "filter[categories.id]" => $apprex_atts["category_id"], 
                     "page[size]" => $max
@@ -64,6 +64,7 @@ class ApprexShortcode {
                     foreach ($articles->data as $article) {
                          if (!isset($article->id) || !isset($article->title)) { continue; }
                          $reqQuery = "?".http_build_query(array("utm_source" => "app_wordpress", "aff" => $apprex_atts["affiliate"], "cam" => $apprex_atts["campaign"]));
+                         $resource = $article->product_type."s"; // course+s, product+s, event+s, post+s
                          $html .= "<a href=\"".$url.$resource."/".$article->slug."/".$reqQuery."\" target=\"_blank\" class=\"apprex-column apprex-col-".$cols."\">\n";
                               $html .= "<img src=\"" . $article->image_url . "\">\n";
                               $html .= "<div class=\"apprex-title-and-price\">";
