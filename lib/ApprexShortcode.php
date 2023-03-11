@@ -12,8 +12,11 @@ class ApprexShortcode {
                     'url_academy' => null,
                     'category_id' => null,
                     'filter_title' => null,
-                    'filter_type' => "articles",
-                    'cols' => 3
+                    'affiliate' => null,
+                    'campaign' => null,
+                    'type' => "articles",
+                    'cols' => 3,
+                    'max' => 4,
                ), $atts, $tag
           );
 
@@ -40,11 +43,13 @@ class ApprexShortcode {
           $html .= "<!--- arx_plugin --> <div class=\"apprex-container\">";
           $WP_Http_Curl = new WP_Http_Curl();
           $cols = round(12 / $apprex_atts["cols"]);
-          $resource = $apprex_atts["filter_type"];
+          $available_types = array("articles", "courses", "posts", "plans", "products", "events");
+          $max = $apprex_atts["cols"] ?? 6;
+          $resource = in_array($apprex_atts["type"], $available_types) ? $apprex_atts["type"] : "articles";
           try {
                $reqUrl = $url. "api/".$resource;
                if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { 
-                    $reqUrl .= "?".http_build_query(array("filter[title]" => $apprex_atts["filter_title"]));
+                    $reqUrl .= "?".http_build_query(array("filter[title]" => $apprex_atts["filter_title"], "page[size]" => $max));
                }
                $response = @$WP_Http_Curl->request($reqUrl , ['headers' => ['accept' => 'application/json']]);
                if (is_array($response) && isset($response["body"]) && !isset($response["errors"])) {
@@ -56,7 +61,8 @@ class ApprexShortcode {
                     $html .= "<div class=\"apprex-row \">\n";
                     foreach ($articles->data as $article) {
                          if (!isset($article->id) || !isset($article->title)) { continue; }
-                         $html .= "<a href=\"".$url.$resource."/".$article->slug."/?utm_source=app_wpp\" target=\"_blank\" class=\"apprex-column apprex-col-".$cols."\">\n";
+                         $reqQuery = "?".http_build_query(array("utm_source" => "app_wordpress", "aff" => $apprex_atts["affiliate"], "cam" => $apprex_atts["campaign"]));
+                         $html .= "<a href=\"".$url.$resource."/".$article->slug."/".$reqQuery."\" target=\"_blank\" class=\"apprex-column apprex-col-".$cols."\">\n";
                               $html .= "<img src=\"" . $article->image_url . "\">\n";
                               $html .= "<div class=\"apprex-title-and-price\">";
                                    $html .= "<h2 class=\"apprex-title\">" . $article->title . "</h2>\n";

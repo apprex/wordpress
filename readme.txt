@@ -23,6 +23,18 @@ Easily integrate your apprex items to wordpress. It is NOT possible to buy them 
 No, but you can deeplink to the purchase form
 
 == Changelog ==
+= 1.0.1 =
+We've added some filtering and new arguments to the shortcode: 
+
+- url_academy
+- category_id
+- filter_title
+- filter_type
+- cols
+- max
+- affiliate
+- campaign
+
 = 0.1.6 = 
 * Added filter and upgraded install information
 

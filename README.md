@@ -27,6 +27,43 @@ Wenn du viele Kurse und Artikel hast, bietet sich die Filterung etwa nach dem Ti
 [apprex filter_title="Einsteiger"]
 ```
 
+### Nach Kategorie filtern
+Übergib eine ID einer Kategorie und die Produkte werden angezeigt.
+```
+[apprex category_id="2bab1429-da71-47c3-b187-3e8456763dad"]
+```
+
+### Anzahl der Spalten ändern
+Standard sind 3 Spalten. Mindestens 1 und maximal 12. Du kannst die Spaltenanzahl auch ändern.
+```
+[apprex cols=2]
+```
+
+### Maximale Produktanzahl
+Wenn Du etwa nur 2 Artikel pro Typ anzeigen möchtest, so gibst Du "max" als Attribut mit.
+```
+[apprex max=2]
+```
+
+### Produkttypen
+Du kannst standardmäßig alle Produkttypen (`type=articles`) anzeigen lassen. Doch kannst Du auch zwischen den anderen Inhaltstypen filtern.
+Zur Verfügung stehen: `courses`, `posts`, `plans`, `products` und `events`.
+```
+[apprex type=courses]
+```
+
+### Affiliate
+Du kannst zu deinem Aufruf einen Affiliate Key hinzufügen. Nutze hierzu den Parameter `affiliate`.
+```
+[apprex affiliate=deine_digistore_id]
+```
+
+### Campaign Key
+Du kannst zu deinem Aufruf einen Affiliate Key hinzufügen. Nutze hierzu den Parameter `campaign`.
+```
+[apprex campaign=DEINE_KAMPAGNE]
+```
+
 ### Eigene URL ändern
 Unter `Einstellungen > apprex` hast du die Möglichkeit die Akademie URL für deine gesamte WordPress Instanz festzulegen.
 Du kannst dem Shortcode allerdings auch Parameter mitgeben, wie zum Beispiel:
