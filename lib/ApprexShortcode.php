@@ -47,10 +47,11 @@ class ApprexShortcode {
           $max = $apprex_atts["cols"] ?? 6;
           $resource = in_array($apprex_atts["type"], $available_types) ? $apprex_atts["type"] : "articles";
           try {
-               $reqUrl = $url. "api/".$resource;
-               if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { 
-                    $reqUrl .= "?".http_build_query(array("filter[title]" => $apprex_atts["filter_title"], "page[size]" => $max));
-               }
+               $reqUrl = $url. "api/".$resource."?".http_build_query(array(
+                    "filter[title]" => $apprex_atts["filter_title"], 
+                    "filter[categories.id]" => $apprex_atts["category_id"], 
+                    "page[size]" => $max
+               ));
                $response = @$WP_Http_Curl->request($reqUrl , ['headers' => ['accept' => 'application/json']]);
                if (is_array($response) && isset($response["body"]) && !isset($response["errors"])) {
                     $articles = json_decode($response["body"]);
