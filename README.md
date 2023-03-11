@@ -64,6 +64,12 @@ Du kannst zu deinem Aufruf einen Affiliate Key hinzufügen. Nutze hierzu den Par
 [apprex campaign=DEINE_KAMPAGNE]
 ```
 
+### Preise verstecken
+Wenn Du magst, kannst Du die Preise auch verstecken
+```
+[apprex hide_price=1]
+```
+
 ### Eigene URL ändern
 Unter `Einstellungen > apprex` hast du die Möglichkeit die Akademie URL für deine gesamte WordPress Instanz festzulegen.
 Du kannst dem Shortcode allerdings auch Parameter mitgeben, wie zum Beispiel:

@@ -15,6 +15,7 @@ class ApprexShortcode {
                     'affiliate' => null,
                     'campaign' => null,
                     'type' => "articles",
+                    'hide_price' => 0,
                     'cols' => 3,
                     'max' => 4,
                ), $atts, $tag
@@ -67,7 +68,7 @@ class ApprexShortcode {
                               $html .= "<img src=\"" . $article->image_url . "\">\n";
                               $html .= "<div class=\"apprex-title-and-price\">";
                                    $html .= "<h2 class=\"apprex-title\">" . $article->title . "</h2>\n";
-                                   if(!empty($article->current_price)) {
+                                   if(!empty($article->current_price) && $apprex_atts["type"] != 1) {
                                         $html .= "<p class=\"apprex-price\">" . $article->current_price . " € </p> <br>\n";
                                    }
                                    $html .= "</div>";
