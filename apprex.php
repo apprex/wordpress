@@ -2,10 +2,10 @@
 /*
 Plugin Name: Apprex LMS Integration
 Plugin URI: https://www.apprex.de/plugins/wordpress
-Description: Integriere deine Onlinekurse aus apprex direkt in WordPress
+Description: Liste deine Onlinekurse aus apprex direkt in WordPress auf
 Author: Andreas Pabst von apprex.de
 Author URI: https://www.andreaspabst.com
-Version: 0.1.6
+Version: 1.0.0
 */
 
 // Stop direct calling of this file

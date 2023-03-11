@@ -11,7 +11,9 @@ class ApprexShortcode {
                     'debug' => false,
                     'url_academy' => null,
                     'category_id' => null,
-                    'filter_title' => null
+                    'filter_title' => null,
+                    'filter_type' => "articles",
+                    'cols' => 3
                ), $atts, $tag
           );
 
@@ -37,38 +39,48 @@ class ApprexShortcode {
      public static function makeRequest($url, $apprex_atts, &$html) {
           $html .= "<!--- arx_plugin --> <div class=\"apprex-container\">";
           $WP_Http_Curl = new WP_Http_Curl();
+          $cols = round(12 / $apprex_atts["cols"]);
+          $resource = $apprex_atts["filter_type"];
           try {
-               $reqUrl = $url. "api/courses";
+               $reqUrl = $url. "api/".$resource;
                if (isset($apprex_atts["filter_title"]) && $apprex_atts["filter_title"] != null) { 
                     $reqUrl .= "?".http_build_query(array("filter[title]" => $apprex_atts["filter_title"]));
                }
                $response = @$WP_Http_Curl->request($reqUrl , ['headers' => ['accept' => 'application/json']]);
-               if (is_array($response) && isset($response["body"])) {
-                    $courses = json_decode($response["body"]);
+               if (is_array($response) && isset($response["body"]) && !isset($response["errors"])) {
+                    $articles = json_decode($response["body"]);
+               } else {
+                    $html .= "<div>Beim Abruf der Produkte (".$url.") ist ein Fehler unterlaufen.</div>";
+               }
+               if(count($articles->data) > 0) {
                     $html .= "<div class=\"apprex-row \">\n";
-                    foreach ($courses as $course) {
-                         if (!isset($course->id) || !isset($course->title) || !isset($course->currentPrice)) { continue; }
-                         $html .= "<div class=\"apprex-column apprex-col-4\">\n";
-                         $html .= "<img src=\"" . $course->image_url . "\">\n";
-                         $html .= "<strong>" . $course->title . "</strong>\n";
-                         $html .= "<p>" . $course->content_excerpt . "</p>\n";
-                         $html .= "<strong>" . $course->currentPrice . " € </strong> <br>\n";
-                         if(isset($course->modules_count)) {
-                              $html .= "<i>Der Kurs beinhaltet " . $course->modules_count . " Module </i>\n";
-                         }
-                         $html .= "<a href=\"".$url."courses/".$course->slug."/?utm_source=app_wpp\" target=\"_blank\" class=\"apprex-button\">Mehr erfahren...</a>\n";
-                         $html .= "</div>\n";
+                    foreach ($articles->data as $article) {
+                         if (!isset($article->id) || !isset($article->title)) { continue; }
+                         $html .= "<a href=\"".$url.$resource."/".$article->slug."/?utm_source=app_wpp\" target=\"_blank\" class=\"apprex-column apprex-col-".$cols."\">\n";
+                              $html .= "<img src=\"" . $article->image_url . "\">\n";
+                              $html .= "<div class=\"apprex-title-and-price\">";
+                                   $html .= "<h2 class=\"apprex-title\">" . $article->title . "</h2>\n";
+                                   if(!empty($article->current_price)) {
+                                        $html .= "<p class=\"apprex-price\">" . $article->current_price . " € </p> <br>\n";
+                                   }
+                                   $html .= "</div>";
+                              $html .= "<p class=\"apprex-content_excerpt\">" . $article->content_excerpt . "</p>\n";
+                              if(isset($article->modules_count)) {
+                                   $html .= "<i>Der Kurs beinhaltet " . $article->modules_count . " Module </i>\n";
+                              }
+                              $html .= "<button class=\"apprex-button\">Mehr erfahren...</button>\n";
+                         $html .= "</a>\n";
                     }
                     $html .= "</div>";
-               } else if (isset($response->errors)) {
-                    $html .= "Beim Abruf unserer Kurse (".$url.") ist ein Fehler unterlaufen. ";
+               } else {
+                    $html .= "<div>Es konnten keine Artikel gefunden werden</div>";
                }
                $html .= "</div>";
           } catch (\WP_Error $e) {
-               return "<!-- e1 -->";
+               return "<!-- e1 --></div>";
                // there seems to be something wrong
           } catch (\Exception $e) {
-               return "<!-- e2 -->";
+               return "<!-- e2 --></div>";
                // also..
           }
      }

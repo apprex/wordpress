@@ -6,25 +6,54 @@
 }
    
 .apprex-row { 
-     display:flex;
+     display: flex;
      flex-wrap: wrap;
 }
    
 .apprex-column {
+     text-decoration: none;
+     display: flex;
+     flex-direction: column;
+     align-items: flex-start;
+
      position: relative;
      min-height: 300px;
-     text-align: center;
+     text-align: left;
      flex-grow: 1;
      flex-shrink: 1;
-     flex-basis: 1;
+     flex-basis: content;
+     
+     padding-top: 7px;
+     padding-left: 7px;
+     padding-right: 7px;
+     padding-bottom: 7px;
 
      margin-left: 3px;
      margin-right: 3px;
-     margin-bottom: 5px;
+     margin-bottom: 15px;
 
      background-color: #efefef;
      border: 1px solid #dedede;
-     padding: 0px;
+}
+
+.apprex-column .apprex-content_excerpt { 
+     font-size: 0.7em;
+     margin-bottom: 7px;
+     text-decoration-line: none !important;
+}
+.apprex-column .apprex-title-and-price {
+     margin-top: 7px;
+     margin-bottom: 7px;
+     display: flex;
+}
+.apprex-column .apprex-title-and-price .apprex-title { 
+     text-decoration: underline;
+     font-size: 0.9em;
+     font-weight: bold;
+     width: 80%;
+}
+.apprex-column .apprex-title-and-price .apprex-price { 
+     float: right;
 }
    
 .apprex-col-1 {
@@ -45,12 +74,14 @@
 .apprex-col-6 {
      max-width: calc( (100% / 2) - 2 * 3px);
 }
+.apprex-col-1 {
+     max-width: calc( (100% / 1) - 2 * 3px);
+}
 
 .apprex-button {
-     position: absolute;
      width: 100%;
-     bottom:   0;
-
+     margin-top: auto;
+     margin-bottom: 7px;
      font-size: 16px;
      border: 1px solid rgb(68, 141, 238);
      background-color:  rgb(36, 102, 189);

@@ -20,3 +20,10 @@ function apprex_shortcode($atts, $content, $tag = '') {
      return $apprex->shortcode($atts, $content, $tag);
 } // register shortcode
 add_shortcode('apprex', 'apprex_shortcode');
+
+if(!function_exists("dd")) {
+     function dd($x) {
+          print_r($x);
+          exit;
+     }
+}
